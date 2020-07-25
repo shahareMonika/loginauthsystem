@@ -1,0 +1,33 @@
+{%extends 'home.html'%}
+{%block body%}
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<form method="post" action="{%url 'authenticate:login'%}">
+{%csrf_token%}
+    <div class="form-group w-50">
+    <label for="uname">Username</label>
+    <input type="text" class="form-control" name="userid" id="uname" placeholder="Username" required>
+  </div>
+
+  <div class="form-group w-50">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="psw" id="exampleInputPassword1" placeholder="Password" required>
+  </div>
+    <div class="g-recaptcha" data-sitekey="6Lcpo60ZAAAAAJJe2TEsBI8IGed9EkV8_T-pBgSg" ></div>
+    {%if error_message%}
+    <small style="color: red">{{ error_message}}</small><br>
+    {%endif%}
+
+    {%if u_message%}
+    <small style="color: red">{{ u_message}}</small><br>
+    {%endif%}
+{%if error_message67%}
+    <script>
+        alert("Recaptcha Fail");
+    </script>
+    {%endif%}
+
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+<br>
+<a href="{%url 'authenticate:forgot'%}" class="btn btn-danger">Forgot Password</a>
+{%endblock%}

@@ -1,0 +1,39 @@
+{%extends 'user.html'%}
+{%block body%}
+<form method="post" name="My" action="{%url 'authenticate:final'%}" onsubmit="return validateForm();">
+    {%csrf_token%}
+    <input type="hidden" name="id" value="{{id}}">
+<div class="form-group w-50">
+    <label for="opass">Old Password</label>
+    <input type="password" class="form-control" id="opass" name="opass" placeholder="Old Password"  required>
+  </div>
+  <div class="form-group w-50">
+    <label for="pass">New Password</label>
+    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" pattern="(?=.*[$@$#!%?&.])(?=.*\d)(?=.*[aA-zZ]).{8,}" required>
+    <small style="color: red">Must Contain:-Characters Length(8),One Special Character($@$#!%?&.),At Least-One Number,Alphabet,</small>
+  </div>
+  <div class="form-group w-50">
+    <label for="pass2">Retype Password</label>
+    <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Password"  required>
+  </div>
+<button type="submit" class="btn btn-primary">Change Password</button>
+</form>
+{%if error%}
+<script>
+    alert("Old password not Matched");
+</script>
+{%endif%}
+<script>
+   function validateForm() {
+  var x = document.forms["My"]["pass"].value;
+  var y = document.forms["My"]["pass2"].value;
+
+  if (x!=y) {
+    alert("Password Not Matched");
+    return false;
+  }
+
+}
+
+</script>
+{%endblock%}

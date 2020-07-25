@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+{%load staticfiles%}
+    <meta name="_token" content="{{ csrf_token }}">
+  <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style>
+    body{
+    background-image: url("{% static 'images/backimage.jpg'%}");
+    background-repeat: no-repeat;
+  }
+  .navbar-inner {
+    background:transparent;
+}
+</style>
+<body>
+<nav class="navbar navbar-expand-lg bg-transparent navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{%url 'authenticate:home'%}" >CUSTOM</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto" >
+
+        <li class="nav-item active" >
+          <a class="btn btn-danger" href="{%url 'authenticate:user'%}">Home</a>
+        </li>
+        <li class="nav-item" >
+          <button onclick="logout()" class="btn btn-danger">Logout</button>
+        </li>
+          <li class="nav-item" >
+          <a class="btn btn-danger" href="{%url 'authenticate:chnage'%}">ChangePassword</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<center style="position:relative;top:50px;;color:white;">
+
+    <H1>Hello:-{{name}}</H1>
+    <H2>{{username}}</H2>
+    <h3>{{email}}</h3>
+    <h4>{{c}}</h4>
+    {%if t is False%}
+    <h2><button value="{{id}}" onclick="getemail()" class="btn btn-danger">Verify Email</button></h2>
+    {%endif%}
+    {%block body%}
+    {%endblock%}
+</center>
+<script>
+    function logout(){
+        $.ajax({
+
+type: 'POST',
+
+url: '{%url 'authenticate:logout'%}',
+
+
+data: {name:'start' ,csrfmiddlewaretoken:$('meta[name="_token"]').attr('content')}
+
+}).done(function(data){
+window.location.href="{%url 'authenticate:login'%}";
+}).fail(function() {
+
+alert( "Posting failed." );
+
+});
+
+    }
+function getemail(){
+$.ajax({
+
+                type: 'POST',
+
+                url: '{%url 'authenticate:verify'%}',
+
+                data: {type:'start',csrfmiddlewaretoken:$('meta[name="_token"]').attr('content')}
+
+            }).done(function(data){
+
+              if(data.is_taken){
+
+              alert("Email Send");
+                return false;
+              }
+              if(data.done){
+
+              alert("Email Verfication Alreday done");
+                return false;
+              }
+
+            }).fail(function() {
+
+                alert( "Posting failed." );
+                return false;
+
+            });
+
+
+}
+
+</script>
+</body>

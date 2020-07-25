@@ -1,0 +1,25 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="txtuser.user.views.user" />
+          <option value="txtuser.user.views.EmployeeForm" />
+          <option value="chatapp.chat.templates.chat.consumers" />
+          <option value="chatapp.chatapp.routing.chat" />
+          <option value="chatapp.chat.views.get_last_10_messages" />
+          <option value="chatapp.chat.views.get_user_contact" />
+          <option value="chatapp.chat.views.get_current_chat" />
+          <option value="event.event.routing.chat" />
+          <option value="action.action.routing.event" />
+          <option value="telbot.telbot.urls.url" />
+          <option value="telbot.settings" />
+          <option value="telbot.telaffairs.urls.telaffairs" />
+          <option value="telbot.telaffairs.telegram_download.google_auth_oauthlib" />
+          <option value="telbot.telaffairs.telegram_download.InstalledAppFlow" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

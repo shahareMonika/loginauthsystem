@@ -1,0 +1,69 @@
+{%extends 'home.html'%}
+{%block body%}
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<form method="post" name="My" action="{%url 'authenticate:signup'%}" onsubmit="return validateForm();">
+{%csrf_token%}
+    <div class="form-group w-50">
+    <label for="user">Username</label>
+    <input type="text" class="form-control" id="user" name="user" placeholder="Username" pattern="(?=.*[$@$#!%?&.])(?=.*\d)(?=.*[aA-zZ]).{8,}" required>
+        {%if error%}
+        <small style="color: white">{{error}}:-{{u}}</small><br>
+        {%endif%}
+        <small style="color: red">Must Contain:-Characters Length(8),One Special Character($@$#!%?&.),At Least-One Number,Alphabet.</small>
+    </div>
+
+    <div class="form-group w-50">
+    <label for="fname">First_Name</label>
+    <input type="text" class="form-control" id="fname" name="fname" placeholder="First_Name" required>
+  </div>
+
+    <div class="form-group w-50">
+    <label for="lname">Last_Name</label>
+    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last_Name">
+  </div>
+  <div class="form-group w-50">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+    {%if error_%}
+        <small style="color: white">{{error_}}:-{{e}}</small><br>
+        {%endif%}
+      <small id="emailHelp"  class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+
+  <div class="form-group w-50">
+    <label for="pass">Password</label>
+    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" pattern="(?=.*[$@$#!%?&.])(?=.*\d)(?=.*[aA-zZ]).{8,}" required>
+    <small style="color: red">Must Contain:-Characters Length(8),One Special Character($@$#!%?&.),At Least-One Number,Alphabet,</small>
+  </div>
+    <div class="form-group w-50">
+    <label for="pass2">conform password</label>
+    <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Retype Password" required>
+  </div>
+  <div class="g-recaptcha" data-sitekey="6Lcpo60ZAAAAAJJe2TEsBI8IGed9EkV8_T-pBgSg" ></div>
+
+    <button type="submit" class="btn btn-primary">SignUp</button>
+</form>
+<script>
+   function validateForm() {
+  var x = document.forms["My"]["pass"].value;
+  var y = document.forms["My"]["pass2"].value;
+  var z=document.forms["My"]["user"].value;
+
+  if (x!=y) {
+    alert("Password Not Matched");
+    return false;
+  }
+  if(x==z){
+  alert("Password Same as Username");
+    return false;
+  }
+
+}
+
+</script>
+{%if error_message67%}
+    <script>
+        alert("Recaptcha Fail");
+    </script>
+    {%endif%}
+{%endblock%}
