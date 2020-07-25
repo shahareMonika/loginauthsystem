@@ -1,5 +1,6 @@
 # loginauthsystem project
 project based on signup, login ,logout,resetpassword authentication system
+here custom is my project and authenticate is my app see the both directory
 # installation and setup virtualenv
 1.create virtualenv i.e pip install pipenv
 2.go to your project directory in the command prompt then put (virtualenv .)
